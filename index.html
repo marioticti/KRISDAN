@@ -524,37 +524,40 @@ document.getElementById("spinBtn").onclick=()=>{
   canvas.style.transition = "none";
   canvas.style.transform = "rotate(0deg)";
 
-  let spin = Math.random()*5000 + 3500;
-  let start = null;
-  
+  let spin = Math.random() * 3600 + 7200; // full spins + randomness
+let start = null;
+let currentRotation = 0;
 
-  function animate(t){
-    if(!start) start = t;
-    let progress = t - start;
+function animate(t){
+  if(!start) start = t;
+  let progress = t - start;
 
-    let rotate = spin * Math.pow(1 - progress/2500, 3);
-    canvas.style.transform = `rotate(${rotate}deg)`;
+  let ease = 1 - Math.pow(progress / 2500, 3);
+  let rotate = spin * ease;
 
-    if(progress < 2500){
-      requestAnimationFrame(animate);
-    } else {
-      spinning = false;
+  currentRotation = rotate;
 
-      canvas.style.transition = "transform 0.3s ease-out";
-      canvas.style.transform = `rotate(${rotate}deg)`;
+  canvas.style.transform = `rotate(${rotate}deg)`;
 
-      let final = rotate % 360;
-      let index = Math.floor((360-final)/(360/total)) % total;
+  if(progress < 2500){
+    requestAnimationFrame(animate);
+  } else {
+    spinning = false;
 
-      selectedAmount = amounts[index];
+    // 🔥 FIXED FINAL CALCULATION
+    let normalized = (spin % 360 + 360) % 360;
+    let sliceSize = 360 / total;
 
-      // SHOW POPUP
-      document.getElementById("giftAmount").innerText =
-        "Send " + selectedAmount + " GHC 🎁";
+    let index = Math.floor(((360 - normalized) % 360) / sliceSize);
 
-      document.getElementById("giftPopup").style.display="flex";
-    }
+    selectedAmount = amounts[index];
+
+    document.getElementById("giftAmount").innerText =
+      "Send " + selectedAmount + " GHC 🎁";
+
+    document.getElementById("giftPopup").style.display = "flex";
   }
+}
 
   requestAnimationFrame(animate);
 };
