@@ -251,10 +251,30 @@ footer{
 }
 
 .popup-content{
-  background:#111;
-  padding:20px;
-  border-radius:15px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding:22px;
+  border-radius:18px;
   text-align:center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  animation: popIn 0.4s ease;
+}
+
+@keyframes popIn{
+  from{transform:scale(0.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.popup-content h3{
+  font-size:22px;
+  margin-bottom:10px;
+  color:#fff;
+}
+
+.popup-content p{
+  margin:6px 0;
+  color:#f1f1f1;
 }
   
 </style>
@@ -343,8 +363,14 @@ Wishing you blessings, growth and joy ✨
 
       <p>Send via Mobile Money:</p>
       <p><strong>*170# (MTN)</strong></p>
-      <p>Number: <b>0246105419</b></p>
-       <p>Name: <b>Kristodea Nyamekye</b></p>
+      <p>Name: <b>Kristodea</b></p>
+      <p>Number: <b>0599571414</b></p>
+
+<button onclick="navigator.clipboard.writeText('0246105419')"
+style="margin-top:10px;padding:8px 12px;border-radius:8px;border:none;background:#00f6ff;color:#000;cursor:pointer;">
+Copy Number 📋
+</button>
+       
 
       <button id="confirmGift">GIFT SENT ✅</button>
     </div>
@@ -455,19 +481,36 @@ let spinning = false;
 let selectedAmount = null;
 
 function drawWheel(){
+  ctx.clearRect(0,0,260,260);
+
   for(let i=0;i<total;i++){
+    const start = i * arc;
+    const end = start + arc;
+
+    // slice
     ctx.beginPath();
     ctx.fillStyle = colors[i];
     ctx.moveTo(130,130);
-    ctx.arc(130,130,110,i*arc,(i+1)*arc);
+    ctx.arc(130,130,110,start,end);
     ctx.fill();
+
+    // border for clean look
+    ctx.strokeStyle = "rgba(255,255,255,0.25)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // text positioning (FIXED ALIGNMENT)
+    const textAngle = start + arc / 2;
 
     ctx.save();
     ctx.translate(130,130);
-    ctx.rotate(i*arc + arc/2);
-    ctx.fillStyle="#000";
-    ctx.font="bold 14px Poppins";
-    ctx.fillText(amounts[i]+" GHC",60,5);
+    ctx.rotate(textAngle);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 13px Poppins";
+    ctx.textAlign = "center";
+    ctx.fillText(amounts[i] + " GHC", 75, 5);
+
     ctx.restore();
   }
 }
@@ -477,14 +520,14 @@ document.getElementById("spinBtn").onclick=()=>{
   if(spinning) return;
   spinning = true;
 
-  let spin = Math.random()*3000 + 2000;
+  let spin = Math.random()*5000 + 3500;
   let start = null;
 
   function animate(t){
     if(!start) start = t;
     let progress = t - start;
 
-    let rotate = spin * (1 - Math.pow(progress/2000,3));
+    let rotate = spin * Math.pow(1 - progress/2500, 3);
     canvas.style.transform = `rotate(${rotate}deg)`;
 
     if(progress < 2000){
@@ -511,8 +554,18 @@ document.getElementById("spinBtn").onclick=()=>{
 // ================= CONFIRM GIFT =================
 document.getElementById("confirmGift").onclick=()=>{
   document.getElementById("giftPopup").style.display="none";
+
+  // AUTO COPY MOMO NUMBER
+  const momoNumber = "0246105419";
+
+  navigator.clipboard.writeText(momoNumber)
+  .then(()=> {
+    alert("📋 MOMO number copied: " + momoNumber);
+  });
 };
 
+
+  
 // ================= WHATSAPP =================
 document.getElementById("sendMsgBtn").onclick=()=>{
   const name =
