@@ -228,6 +228,35 @@ footer{
   color:rgba(255,255,255,0.95);
   font-size:13px;
 }
+
+  #spinBtn, #sendMsgBtn, #confirmGift{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  background:linear-gradient(90deg,#00f6ff,#6b00ff);
+  color:white;
+  cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.popup-content{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+}
+  
 </style>
 </head>
 
@@ -272,27 +301,45 @@ footer{
     </div>
   </section>
 
-  <!-- GIFT + MESSAGE SYSTEM -->
-<div style="margin-top:40px;">
+ <!-- ================= GIFT SYSTEM ================= -->
+<div style="margin-top:40px;text-align:center;">
 
-  <h2 style="margin-bottom:10px;">🎁 Send a Birthday Gift</h2>
+  <h2>🎁 Send Krisdan a Gift</h2>
 
-  <!-- MESSAGE -->
-  <textarea id="userMessage" placeholder="Write a message for Krisdan..."
-  style="width:90%;max-width:400px;padding:12px;border-radius:10px;border:none;margin-bottom:10px;"></textarea>
+  <!-- ARROW -->
+  <div style="font-size:30px;margin:10px;">⬇️</div>
 
   <!-- WHEEL -->
-  <canvas id="wheel" width="250" height="250" style="margin:10px auto;display:block;"></canvas>
+  <canvas id="wheel" width="260" height="260"></canvas>
 
-  <button id="spinBtn" style="padding:12px 20px;border:none;border-radius:10px;background:#6b00ff;color:white;">
-    SPIN 🎡
-  </button>
+  <br>
+  <button id="spinBtn">SPIN 🎡</button>
 
-  <p id="result" style="margin-top:10px;font-weight:600;"></p>
+  <!-- POPUP -->
+  <div id="giftPopup" class="popup">
+    <div class="popup-content">
+      <h3>🎉 Gift Selected</h3>
+      <p id="giftAmount"></p>
 
-  <button id="sendGift" style="margin-top:10px;padding:12px 20px;border:none;border-radius:10px;background:#00f6ff;color:black;">
-    Send via WhatsApp 💬
-  </button>
+      <p>Send via Mobile Money:</p>
+      <p><strong>*170# (MTN)</strong></p>
+      <p>Number: <b>0246105419</b></p>
+       <p>Name: <b>Kristodea Nyamekye</b></p>
+
+      <button id="confirmGift">GIFT SENT ✅</button>
+    </div>
+  </div>
+
+  <!-- MESSAGE SECTION -->
+  <div id="messageSection" style="display:none;margin-top:30px;">
+    <h3>💌 Send the Birthday Girl a Special Message</h3>
+
+    <textarea id="userMessage" placeholder="Write your message..."
+    style="width:90%;max-width:400px;padding:12px;border-radius:10px;"></textarea>
+
+    <br><br>
+    <button id="sendMsgBtn">Send Message 💬</button>
+  </div>
 
 </div>
 
@@ -301,9 +348,7 @@ Happy Birthday Krisdan 🎉🎂<br><br>
 Wishing you blessings, growth and joy ✨
   </div> 
 
-  <footer>Made with 💙
-  <p>@NanaB</p> </footer>
-
+ 
 </div>
 
 <audio id="bgAudio" src="song3.mp3" loop></audio>
@@ -321,7 +366,6 @@ for(let i=0;i<10;i++){
   e.style.animationDuration=(10+Math.random()*8)+'s';
   container.appendChild(e);
 }
-
 // ================= INTRO =================
 document.getElementById('enterBtn').onclick=()=>{
   document.getElementById('introModal').style.display='none';
@@ -332,93 +376,97 @@ document.getElementById('closeIntroBtn').onclick=()=>{
   document.getElementById('introModal').style.display='none';
 };
 
-
-// ================= SPIN WHEEL =================
+// ================= WHEEL =================
 const canvas = document.getElementById("wheel");
 const ctx = canvas.getContext("2d");
 
-const gifts = [5,10,15,20,50];
-const colors = ["#ff3ec5","#6b00ff","#00f6ff","#ffd300","#00ff88"];
-const total = gifts.length;
+const amounts = [50,75,100,125,150,175,200];
+const colors = ["#ff3ec5","#6b00ff","#00f6ff","#ffd300","#00ff88","#ff8800","#ff4444"];
+const total = amounts.length;
 const arc = (2*Math.PI)/total;
 
-let angle = 0;
 let spinning = false;
-let selected = null;
+let selectedAmount = null;
 
 function drawWheel(){
   for(let i=0;i<total;i++){
     ctx.beginPath();
     ctx.fillStyle = colors[i];
-    ctx.moveTo(125,125);
-    ctx.arc(125,125,100,i*arc,(i+1)*arc);
+    ctx.moveTo(130,130);
+    ctx.arc(130,130,110,i*arc,(i+1)*arc);
     ctx.fill();
 
     ctx.save();
-    ctx.translate(125,125);
+    ctx.translate(130,130);
     ctx.rotate(i*arc + arc/2);
     ctx.fillStyle="#000";
     ctx.font="bold 14px Poppins";
-    ctx.fillText(gifts[i]+" GHC",60,5);
+    ctx.fillText(amounts[i]+" GHC",60,5);
     ctx.restore();
   }
 }
-
 drawWheel();
 
 document.getElementById("spinBtn").onclick=()=>{
   if(spinning) return;
   spinning = true;
 
-  let spinAngle = Math.random()*3000 + 2000;
-
+  let spin = Math.random()*3000 + 2000;
   let start = null;
 
   function animate(t){
     if(!start) start = t;
     let progress = t - start;
 
-    angle = spinAngle * (1 - Math.pow(progress/2000,3));
-    canvas.style.transform = `rotate(${angle}deg)`;
+    let rotate = spin * (1 - Math.pow(progress/2000,3));
+    canvas.style.transform = `rotate(${rotate}deg)`;
 
     if(progress < 2000){
       requestAnimationFrame(animate);
     } else {
       spinning = false;
 
-      let final = (angle % 360);
-      let index = Math.floor((360 - final) / (360/total)) % total;
-      selected = gifts[index];
+      let final = rotate % 360;
+      let index = Math.floor((360-final)/(360/total)) % total;
 
-      document.getElementById("result").innerText =
-        "You got " + selected + " GHC 🎉";
+      selectedAmount = amounts[index];
+
+      // SHOW POPUP
+      document.getElementById("giftAmount").innerText =
+        "Send " + selectedAmount + " GHC 🎁";
+
+      document.getElementById("giftPopup").style.display="flex";
     }
   }
 
   requestAnimationFrame(animate);
 };
 
+// ================= CONFIRM GIFT =================
+document.getElementById("confirmGift").onclick=()=>{
+  document.getElementById("giftPopup").style.display="none";
 
-// ================= WHATSAPP SEND =================
-document.getElementById("sendGift").onclick=()=>{
+  // SHOW MESSAGE SECTION
+  document.getElementById("messageSection").style.display="block";
+};
+
+// ================= WHATSAPP =================
+document.getElementById("sendMsgBtn").onclick=()=>{
   const msg = document.getElementById("userMessage").value || "Happy Birthday 🎉";
 
-  if(!selected){
-    alert("Spin first!");
-    return;
-  }
+  const fullMsg =
+`🎉 Birthday Message
 
-  const finalMessage =
-`🎉 Birthday Gift 🎁
-
-Amount: ${selected} GHC
+Gift Sent: ${selectedAmount} GHC
 Message: ${msg}`;
 
-  const phone = "233504620130";
-
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(finalMessage)}`, "_blank");
+  window.open(`https://wa.me/233504620130?text=${encodeURIComponent(fullMsg)}`);
 };
 </script>
+
+   <footer>Made with 💙
+  <p>@NanaB</p> </footer>
+
 
 </body>
 </html>
