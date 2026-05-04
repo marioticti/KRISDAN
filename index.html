@@ -366,7 +366,7 @@ Wishing you blessings, growth and joy ✨
       <p>Name: <b>Kristodea</b></p>
       <p>Number: <b>0599571414</b></p>
 
-<button onclick="navigator.clipboard.writeText('0246105419')"
+<button onclick="navigator.clipboard.writeText('0599571414')"
 style="margin-top:10px;padding:8px 12px;border-radius:8px;border:none;background:#00f6ff;color:#000;cursor:pointer;">
 Copy Number 📋
 </button>
@@ -509,7 +509,7 @@ function drawWheel(){
     ctx.fillStyle = "#fff";
     ctx.font = "bold 13px Poppins";
     ctx.textAlign = "center";
-    ctx.fillText(amounts[i] + " GHC", 75, 5);
+    ctx.fillText(amounts[i] + " GHC", 70, 4);
 
     ctx.restore();
   }
@@ -520,8 +520,13 @@ document.getElementById("spinBtn").onclick=()=>{
   if(spinning) return;
   spinning = true;
 
+  // 👉 RESET TRANSITION BEFORE SPIN STARTS
+  canvas.style.transition = "none";
+  canvas.style.transform = "rotate(0deg)";
+
   let spin = Math.random()*5000 + 3500;
   let start = null;
+  
 
   function animate(t){
     if(!start) start = t;
@@ -530,10 +535,13 @@ document.getElementById("spinBtn").onclick=()=>{
     let rotate = spin * Math.pow(1 - progress/2500, 3);
     canvas.style.transform = `rotate(${rotate}deg)`;
 
-    if(progress < 2000){
+    if(progress < 2500){
       requestAnimationFrame(animate);
     } else {
       spinning = false;
+
+      canvas.style.transition = "transform 0.3s ease-out";
+      canvas.style.transform = `rotate(${rotate}deg)`;
 
       let final = rotate % 360;
       let index = Math.floor((360-final)/(360/total)) % total;
@@ -556,7 +564,7 @@ document.getElementById("confirmGift").onclick=()=>{
   document.getElementById("giftPopup").style.display="none";
 
   // AUTO COPY MOMO NUMBER
-  const momoNumber = "0246105419";
+  const momoNumber = "0599571414";
 
   navigator.clipboard.writeText(momoNumber)
   .then(()=> {
