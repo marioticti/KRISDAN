@@ -359,7 +359,7 @@ Wishing you blessings, growth and joy ✨
 
   <!-- NAME INPUT -->
   <div style="margin-top:10px;">
-    <input id="senderName" placeholder="Enter your name..."
+    <input id="senderNameMsg" placeholder="Enter your name..."
     style="padding:10px;border-radius:10px;border:none;width:220px;text-align:center;">
   </div>
 
@@ -511,15 +511,14 @@ document.getElementById("spinBtn").onclick=()=>{
 // ================= CONFIRM GIFT =================
 document.getElementById("confirmGift").onclick=()=>{
   document.getElementById("giftPopup").style.display="none";
-
-  
-  // SHOW MESSAGE SECTION
-  document.getElementById("messageSection").style.display="block";
 };
 
 // ================= WHATSAPP =================
 document.getElementById("sendMsgBtn").onclick=()=>{
-  const name = document.getElementById("senderName").value || "Anonymous";
+  const name =
+  document.getElementById("senderNameMsg").value ||
+  document.getElementById("senderName").value ||
+  "Anonymous";
   const msg = document.getElementById("userMessage").value || "Happy Birthday 🎉";
 
   const fullMsg =
