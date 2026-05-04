@@ -1,39 +1,196 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Happy Birthday Isabella</title><link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet"><style>:root{ --accent1:#00f6ff; --accent2:#6b00ff; --accent3:#ff3ec5; --accent4:#ffd300; --bg-speed:20s; --max-width:980px;}
-/* Body & background */body{ margin:0; font-family:'Poppins',sans-serif; overflow-x:hidden; color:#fff; background:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3),var(--accent4)); background-size:400% 400%; animation:neonBG var(--bg-speed) linear infinite; position:relative;}
-@keyframes neonBG{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
-.overlay{ position:fixed; inset:0; pointer-events:none; mix-blend-mode:overlay; background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.12)); z-index:1;}
-.wrap{ max-width:var(--max-width); width:94%; margin:28px auto; text-align:center; position:relative; z-index:3;}
-/* Landing / Intro Modal */#introModal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.75); z-index:9999;}
-#introContent { text-align: center; padding: 32px 28px; border-radius: 20px; background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); animation: bounceIn 0.6s ease-out;}
-#introContent h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: #fff; margin-bottom: 24px;}
-#introContent .btn-row{ display: flex; justify-content: center; gap: 16px;}
-#introContent .btn{ padding: 12px 20px; font-size: 1rem; border-radius: 12px; border: none; cursor: pointer;}
-#introContent .btn.ok{ background: linear-gradient(90deg,#00f6ff,#6b00ff); color: #fff;}
-#introContent .btn.later{ background: rgba(255,255,255,0.1); color: #fff;}
-@keyframes bounceIn { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.05); opacity: 1; } 80% { transform: scale(0.95); } 100% { transform: scale(1); }}
-/* Neon HBB heading */.hbb-text h1 { font-family:'Playfair Display', serif; font-weight:900; font-size:3rem; color:#fff; line-height:1.2; text-align:center; margin-bottom:8px; border:1px solid rgba(255,255,255,0.25); padding:6px 12px; border-radius:6px; box-shadow:0 0 6px rgba(255,255,255,0.08); display:inline-block; transition: transform 0.3s ease, box-shadow 0.3s ease;}.hbb-text h1 span{display:block;}.hbb-text h1:hover,.hbb-text h1:active{ animation: tinyZoom 0.35s forwards;}@keyframes tinyZoom{ 0%{transform: scale(1);} 50%{transform: scale(1.015);} 100%{transform: scale(1);}}
-.subline{ font-family:'Poppins',sans-serif; font-size:1.2rem; font-weight:600; margin-bottom:18px; color:#ffe6f0;}
-/* Pictures & Videos vertical column */.pictures,.videos{ display:flex; flex-direction:column; gap:14px; margin:16px auto; width:100%; max-width:360px; align-items:center; justify-content:center;}
-/* Picture cards */.pictures img { border-radius: 18px; width: 96%; aspect-ratio: 9/16; object-fit: cover; background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); box-shadow:0 8px 24px rgba(0,0,0,0.25); padding: 4px; animation: floatPic 8s ease-in-out infinite alternate;}
-/* Video cards */.video-card { width: 100%; border-radius: 18px; overflow: hidden; background: rgba(255, 255, 255, 0.04); box-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02); display:flex; align-items:center; justify-content:center; padding:4px; position:relative; animation: floatVid 10s ease-in-out infinite alternate;}
-.video-card video { border-radius: 12px; width: 100%; aspect-ratio: 9/16; object-fit: cover;}
-/* Buttons note */.btn-note { margin:12px auto; padding:12px 16px; width:90%; max-width:360px; font-size:0.9rem; color:rgba(255,255,255,0.85); text-align:center; font-family: 'Poppins', sans-serif; line-height:1.4; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px); border-radius: 18px; border:none; box-shadow:0 8px 24px rgba(0,0,0,0.25); animation: floatPic 8s ease-in-out infinite alternate;}
-.btn-note div{margin:4px 0;}
-@keyframes floatPic{0%{transform:translateY(0px)}50%{transform:translateY(-6px)}100%{transform:translateY(0px)}}@keyframes floatVid{0%{transform:translateY(0px) rotate(0deg)}50%{transform:translateY(-5px) rotate(1deg)}100%{transform:translateY(0px) rotate(0deg)}}
-/* Speech */.speech{ font-family:'Satify', cursive; font-size:1.1rem; line-height:1.5; color:rgba(255,255,255,0.95); max-width:540px; margin:12px auto; text-align:left; background: rgba(255,255,255,0.01); backdrop-filter: blur(3px); border-radius:20px; border:none; box-shadow:0 8px 20px rgba(0,0,0,0.2); padding:16px 20px; animation: floatPic 8s ease-in-out infinite alternate;}
-/* Public figure */.public-figure{margin-top:10px;font-size:clamp(13px,3.2vw,16px);}.public-figure strong{display:inline-block;font-weight:900;}
-/* Footer */footer{margin-top:16px;color:rgba(255,255,255,0.95);font-size:13px;}
-/* Floating emojis */.floating-emoji{ position:fixed; font-size:28px; animation:floatEmoji 12s linear infinite; opacity:0.85; pointer-events:none; z-index:0; border:none; /* removed borders */ border-radius:6px; padding:2px;}
-@keyframes floatEmoji{0%{transform:translateY(110vh) rotate(0deg);}100%{transform:translateY(-10vh) rotate(360deg);}}
-/* Hover effects */.pictures img:hover,.pictures img:active,.video-card:hover,.video-card:active{ transform:scale(1.03); box-shadow:0 0 18px rgba(255,255,255,0.2),0 0 28px rgba(255,255,255,0.1); transition:transform 0.35s ease, box-shadow 0.4s ease;}
-/* Responsive */@media(max-width:600px){ .hbb-text h1{font-size:2.2rem;} .subline{font-size:1rem;} .speech{font-size:1rem;width:95%;}}</style></head><body><div class="overlay"></div><div id="emojiContainer"></div>
-<!-- Landing / Intro Modal --><div id="introModal"> <div id="introContent"> <h1>WELCOME BELZIE</h1> <div class="btn-row"> <button class="btn ok" id="enterBtn">ENTER 🎉</button> <button class="btn later" id="closeIntroBtn">CLOSE</button> </div> </div></div>
-<div class="wrap"> <!-- Neon Heading --> <div class="hbb-text"><h1>Happy Birthday<br><span>💙💛 ISABELLA 💝</span></h1></div> <div class="subline">Our one and only Belzie</div>
-<!-- Pictures --> <section class="pictures"> <img src="Bz1.jpg" alt="Bz1"> <img src="Bz2.jpg" alt="Bz2"> <img src="Bz3.jpg" alt="Bz3"> <img src="Bz4.jpg" alt="Bz4"> </section>
-<!-- Speech --> <div class="speech">Happy Birthday Belzie! 🎉🎂<br>I pray you receive all your desires that are in line with the will of God for your life ✨ and that you live to accomplish your purpose on earth 🌍💫<br><br>I quite remember JHS, I wasn’t one of the first people to talk to you, but here I am still hanging on😎. From classmates in Form 2 to friends in Form 3 till now. Who knows, one day we might even be shaking hands on a big business contact 💼😂<br><br>And yeah, the pics and videos I took were for this. The juju man bi me naa 😂 and this for-girls potion is harmless, so you can stop praying against it wai 😂🤣<br>🙏 Glad I have a friend like you amongst my inner circle 💛. Always cool-headed 😎, good vybes/aura 💫, and all that great side of you, just amazing...🤭Well except remembering some of us too. Ayaa sometimes remember us some wai na you're not the only old lady around 😂<br>Anyways, Have A Nice Day<br><br>Happy birthday once again🎈💛💙 <br> <b>🔥Enjoy Your Day😎</b> </div>
-<!-- Videos --> <section class="videos"> <div class="video-card"><video id="v1" playsinline muted loop autoplay><source src="Belzie1.mp4" type="video/mp4"></video></div> <div class="video-card"><video id="v2" playsinline muted loop autoplay><source src="Belzie2.mp4" type="video/mp4"></video></div> <div class="video-card"><video id="v3" playsinline muted loop autoplay><source src="Belzie3.mp4" type="video/mp4"></video></div> <div class="video-card"><video id="v4" playsinline muted loop autoplay><source src="Belzie4.mp4" type="video/mp4"></video></div> <div class="public-figure">HAPPY BIRTHDAY <strong id="publicTag">PUBLIC FIGURE😂</strong></div> </section>
-<footer>Made with 💙 <br> 😎NanaB🫵 </footer></div>
-<!-- Background audio --><audio id="bgAudio" src="Bsong.mp3" loop preload="auto"></audio>
-<script>(function(){ const introModal = document.getElementById('introModal'); const enterBtn = document.getElementById('enterBtn'); const closeIntroBtn = document.getElementById('closeIntroBtn'); const bgAudio = document.getElementById('bgAudio'); const vids = [document.getElementById('v1'),document.getElementById('v2'),document.getElementById('v3'),document.getElementById('v4')];
-// Landing page buttons enterBtn.addEventListener('click', () => { introModal.style.display='none'; bgAudio.play().catch(()=>{}); vids.forEach(v=>v.play().catch(()=>{})); }); closeIntroBtn.addEventListener('click', ()=>window.close());
-// Floating emojis const emojis = ['❤️','💛','💙','🎉','🎈','✨','😂','💫']; const container = document.getElementById('emojiContainer'); for(let i=0;i<10;i++){ const span = document.createElement('div'); span.className='floating-emoji'; span.textContent=emojis[i]; span.style.left=Math.random()*90+'%'; span.style.fontSize=(22+Math.random()*14)+'px'; span.style.animationDuration=(10+Math.random()*8)+'s'; span.style.opacity=0.7+Math.random()*0.3; container.appendChild(span); }})();</script></body></html> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday KRISTODEA</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --accent1:#00f6ff;
+  --accent2:#6b00ff;
+  --accent3:#ff3ec5;
+  --accent4:#ffd300;
+  --bg-speed:20s;
+  --max-width:980px;
+}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+  color:#fff;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3),var(--accent4));
+  background-size:400% 400%;
+  animation:neonBG var(--bg-speed) linear infinite;
+  position:relative;
+}
+
+@keyframes neonBG{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  mix-blend-mode:overlay;
+  background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.12));
+  z-index:1;
+}
+
+.wrap{
+  max-width:var(--max-width);
+  width:94%;
+  margin:28px auto;
+  text-align:center;
+  position:relative;
+  z-index:3;
+}
+
+/* INTRO MODAL */
+#introModal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  z-index:9999;
+}
+
+#introContent {
+  text-align: center;
+  padding: 32px 28px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+}
+
+#introContent h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* HEAD */
+.hbb-text h1 {
+  font-family:'Playfair Display', serif;
+  font-weight:900;
+  font-size:3rem;
+  color:#fff;
+  text-align:center;
+}
+
+.subline{
+  font-size:1.2rem;
+  font-weight:600;
+  margin-bottom:18px;
+}
+
+/* PICTURES */
+.pictures{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin:16px auto;
+  max-width:360px;
+}
+
+.pictures img {
+  border-radius: 18px;
+  width: 96%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+}
+
+/* NOTE */
+.btn-note {
+  margin:12px auto;
+  padding:12px 16px;
+  width:90%;
+  max-width:360px;
+}
+
+/* SPEECH */
+.speech{
+  font-size:1.1rem;
+  line-height:1.5;
+  max-width:540px;
+  margin:12px auto;
+  text-align:left;
+  padding:16px 20px;
+}
+
+/* FLOAT */
+.floating-emoji{
+  position:fixed;
+  font-size:28px;
+  animation:floatEmoji 12s linear infinite;
+}
+
+@keyframes floatEmoji{
+  0%{transform:translateY(110vh)}
+  100%{transform:translateY(-10vh)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- INTRO -->
+<div id="introModal">
+  <div id="introContent">
+    <h1>WELCOME KRISDAN</h1>
+    <button onclick="start()">ENTER</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="hbb-text">
+  <h1>Happy Birthday<br><span>💙💛 KRISTODEA 💝</span></h1>
+</div>
+
+<div class="subline">Our one and only Krisdan</div>
+
+<!-- PICTURES -->
+<section class="pictures">
+  <img src="K1.jpg">
+  <img src="K2.jpg">
+  <img src="K3.jpg">
+  <img src="K4.jpg">
+</section>
+
+<!-- SPEECH -->
+<div class="speech">
+Happy Birthday Krisdan! 🎉🎂<br><br>
+I pray you receive all your desires that are in line with the will of God for your life ✨<br><br>
+From classmates to friends… and still counting 😎<br><br>
+Happy birthday once again 🎈💛💙
+</div>
+
+<footer>
+Made with 💙
+</footer>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="bgAudio" src="song3.mp3" loop></audio>
+
+<script>
+function start(){
+  document.getElementById('introModal').style.display='none';
+  document.getElementById('bgAudio').play();
+}
+</script>
+
+</body>
+</html>
