@@ -301,6 +301,15 @@ footer{
     </div>
   </section>
 
+  <!-- ================= CAROUSEL ================= -->
+<div style="margin-top:40px;text-align:center;">
+  <h2>✨ Memorable Moments ✨</h2>
+
+  <div style="perspective:1000px;height:260px;display:flex;justify-content:center;align-items:center;">
+    <div id="carousel3d" style="width:200px;height:200px;position:relative;transform-style:preserve-3d;"></div>
+  </div>
+</div>
+
  <!-- ================= GIFT SYSTEM ================= -->
 <div style="margin-top:40px;text-align:center;">
 
@@ -366,6 +375,48 @@ for(let i=0;i<10;i++){
   e.style.animationDuration=(10+Math.random()*8)+'s';
   container.appendChild(e);
 }
+
+  // ================= CAROUSEL =================
+const carousel = document.getElementById("carousel3d");
+
+const images = ["K1.jpg","K2.jpg","K3.jpg","K4.jpg","K5.jpg"];
+const totalItems = images.length;
+
+// 👉 THIS IS THE SPACING
+const radius = 130; // 🔥 change this (smaller = tighter)
+
+let angle = 0;
+
+images.forEach((src, i)=>{
+  const div = document.createElement("div");
+
+  const a = (2*Math.PI/totalItems) * i;
+
+  div.style.position = "absolute";
+  div.style.width = "160px";
+  div.style.height = "200px";
+  div.style.borderRadius = "15px";
+  div.style.overflow = "hidden";
+
+  div.style.transform =
+    `rotateY(${a}rad) translateZ(${radius}px)`;
+
+  div.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;">`;
+
+  carousel.appendChild(div);
+});
+
+function rotateCarousel(){
+  // 👉 THIS IS THE SPEED
+  angle += 0.0024; // 🔥 change this (bigger = faster)
+
+  carousel.style.transform = `rotateY(${angle}rad)`;
+
+  requestAnimationFrame(rotateCarousel);
+}
+
+rotateCarousel();
+  
 // ================= INTRO =================
 document.getElementById('enterBtn').onclick=()=>{
   document.getElementById('introModal').style.display='none';
