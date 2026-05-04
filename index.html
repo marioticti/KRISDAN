@@ -314,6 +314,12 @@ footer{
 <div style="margin-top:40px;text-align:center;">
 
   <h2>🎁 Send Krisdan a Gift</h2>
+  
+  <!-- NAME INPUT -->
+<div style="margin-top:10px;">
+  <input id="senderName" placeholder="Enter your name..."
+  style="padding:10px;border-radius:10px;border:none;width:220px;text-align:center;">
+</div>
 
   <!-- ARROW -->
   <div style="font-size:30px;margin:10px;">⬇️</div>
@@ -497,18 +503,22 @@ document.getElementById("spinBtn").onclick=()=>{
 document.getElementById("confirmGift").onclick=()=>{
   document.getElementById("giftPopup").style.display="none";
 
+  
   // SHOW MESSAGE SECTION
   document.getElementById("messageSection").style.display="block";
 };
 
 // ================= WHATSAPP =================
 document.getElementById("sendMsgBtn").onclick=()=>{
+  const name = document.getElementById("senderName").value || "Anonymous";
   const msg = document.getElementById("userMessage").value || "Happy Birthday 🎉";
 
   const fullMsg =
 `🎉 Birthday Message
 
-Gift Sent: ${selectedAmount} GHC
+From: ${name}
+${selectedAmount ? "Gift Sent: " + selectedAmount + " GHC" : ""}
+
 Message: ${msg}`;
 
   window.open(`https://wa.me/233504620130?text=${encodeURIComponent(fullMsg)}`);
